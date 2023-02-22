@@ -19,7 +19,7 @@ const cloudinary_1 = __importDefault(require("../utils/cloudinary"));
 const createMemory = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     var _a;
     const photo = (_a = req.file) === null || _a === void 0 ? void 0 : _a.path;
-    const { user_name, title, description, location } = req.body;
+    const { title, description, location } = req.body;
     const user_id = req.user;
     const comments = [{ user: "you the best" }];
     console.log(req.file);
@@ -30,7 +30,6 @@ const createMemory = (req, res) => __awaiter(void 0, void 0, void 0, function* (
         });
         const memory = new memory_1.default({
             user_id: user_id,
-            user_name: user_name,
             photo: {
                 public_id: cloudImage.public_id,
                 url: cloudImage.secure_url,

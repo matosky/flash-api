@@ -2,10 +2,10 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = require("mongoose");
 const memorySchema = new mongoose_1.Schema({
-    user_name: {
-        type: String,
-        required: true,
-    },
+    // user_name: {
+    //   type: String,
+    //   required: true,
+    // },
     photo: {
         public_id: {
             type: String,

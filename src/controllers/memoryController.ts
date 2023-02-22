@@ -5,7 +5,7 @@ import cloudUpload from "../utils/cloudinary";
 
 export const createMemory = async (req: Request, res: Response) => {
   const photo = req.file?.path;
-  const { user_name, title, description, location } = req.body;
+  const {  title, description, location } = req.body;
   const user_id = req.user;
   const comments = [{ user: "you the best" }];
   console.log(req.file);
@@ -18,7 +18,6 @@ export const createMemory = async (req: Request, res: Response) => {
 
     const memory = new Memory({
       user_id: user_id,
-      user_name: user_name,
       photo: {
         public_id: cloudImage.public_id,
         url: cloudImage.secure_url,

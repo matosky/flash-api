@@ -15,10 +15,10 @@ interface IMemory {
 
 const memorySchema = new Schema<IMemory>(
   {
-    user_name: {
-      type: String,
-      required: true,
-    },
+    // user_name: {
+    //   type: String,
+    //   required: true,
+    // },
     photo: {
       public_id: {
         type: String,
