@@ -23,7 +23,6 @@ export const authMiddleware = async (req: Request, res: Response, next: NextFunc
   }
 
   const token = authorization.split(' ')[1];
-
   try {
     const { user_name } = jwt.verify(token, secret) as { user_name: string, _id: string };
     const user = await User.findOne({ user_name }).select("user_name");

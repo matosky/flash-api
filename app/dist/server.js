@@ -33,11 +33,15 @@ dotenv.config();
 const db_1 = require("./db");
 const memoryRoutes_1 = __importDefault(require("./routes/memoryRoutes"));
 const userRoutes_1 = __importDefault(require("./routes/userRoutes"));
+const likes_1 = __importDefault(require("./routes/likes"));
+const comments_1 = __importDefault(require("./routes/comments"));
 const app = (0, express_1.default)();
 app.use((0, cors_1.default)());
 app.use(express_1.default.json());
 app.use("/static", express_1.default.static("assets/uploads"));
 app.use("/api/memories", memoryRoutes_1.default);
 app.use("/api/users", userRoutes_1.default);
+app.use("/api/likes", likes_1.default);
+app.use("/api/memory/comments", comments_1.default);
 (0, db_1.connectDatabase)(app);
 //# sourceMappingURL=server.js.map

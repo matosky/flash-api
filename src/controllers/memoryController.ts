@@ -7,7 +7,6 @@ export const createMemory = async (req: Request, res: Response) => {
   const photo = req.file?.path;
   const {  title, description, location } = req.body;
   const user_id = req.user;
-  const comments = [{ user: "you the best" }];
   console.log(req.file);
   console.log("USERID>>", req.user);
 
@@ -25,7 +24,6 @@ export const createMemory = async (req: Request, res: Response) => {
       title: title,
       description: description,
       location: location,
-      comments: comments,
     });
 
     try {

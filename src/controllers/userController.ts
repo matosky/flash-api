@@ -66,9 +66,10 @@ export const loginUser = async (
   res: Response,
   next: NextFunction
 ) => {
-  // console.log(req.body.body)
+  console.log(req.body)
   try {
-    const { email, password } = JSON.parse(req.body.body);
+    const { email, password } = req.body;
+    // const { email, password } = req.body.body;
 
     const user = await User.findUserByCredentials(email, password);
     console.log(email, password)

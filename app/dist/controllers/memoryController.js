@@ -21,7 +21,6 @@ const createMemory = (req, res) => __awaiter(void 0, void 0, void 0, function* (
     const photo = (_a = req.file) === null || _a === void 0 ? void 0 : _a.path;
     const { title, description, location } = req.body;
     const user_id = req.user;
-    const comments = [{ user: "you the best" }];
     console.log(req.file);
     console.log("USERID>>", req.user);
     if (photo) {
@@ -37,7 +36,6 @@ const createMemory = (req, res) => __awaiter(void 0, void 0, void 0, function* (
             title: title,
             description: description,
             location: location,
-            comments: comments,
         });
         try {
             const newMemory = yield memory.save();

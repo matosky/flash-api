@@ -2,10 +2,6 @@
 Object.defineProperty(exports, "__esModule", { value: true });
 const mongoose_1 = require("mongoose");
 const memorySchema = new mongoose_1.Schema({
-    // user_name: {
-    //   type: String,
-    //   required: true,
-    // },
     photo: {
         public_id: {
             type: String,
@@ -13,8 +9,8 @@ const memorySchema = new mongoose_1.Schema({
         },
         url: {
             type: String,
-            required: true
-        }
+            required: true,
+        },
     },
     title: {
         type: String,
@@ -31,8 +27,16 @@ const memorySchema = new mongoose_1.Schema({
     user_id: {
         type: String,
     },
-    likes: { type: Number },
-    comments: [{ user: { type: String } }],
+    likes: { type: Number, default: 0 },
+    comments: {
+        type: [
+            {
+                name: { type: String, required: true },
+                text: { type: String, required: true },
+            },
+        ],
+        default: [],
+    },
 }, { timestamps: true });
 const Memory = (0, mongoose_1.model)("Memory", memorySchema);
 exports.default = Memory;

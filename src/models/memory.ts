@@ -1,6 +1,5 @@
 import mongoose, { Model, Schema, HydratedDocument, model } from "mongoose";
 
-
 interface IMemory {
   user_name: string;
   photo: any;
@@ -10,15 +9,11 @@ interface IMemory {
   user_id: any;
   likes: number;
   comments: any;
-  _id: any
+  _id: any;
 }
 
 const memorySchema = new Schema<IMemory>(
   {
-    // user_name: {
-    //   type: String,
-    //   required: true,
-    // },
     photo: {
       public_id: {
         type: String,
@@ -26,8 +21,8 @@ const memorySchema = new Schema<IMemory>(
       },
       url: {
         type: String,
-        required: true
-      }
+        required: true,
+      },
     },
     title: {
       type: String,
@@ -44,8 +39,16 @@ const memorySchema = new Schema<IMemory>(
     user_id: {
       type: String,
     },
-    likes: { type: Number },
-    comments: [{ user: { type: String } }],
+    likes: { type: Number, default: 0 },
+    comments: {
+      type: [
+        {
+          name: { type: String, required: true },
+          text: { type: String, required: true },
+        },
+      ],
+      default: [],
+    },
   },
   { timestamps: true }
 );
