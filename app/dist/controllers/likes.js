@@ -38,25 +38,8 @@ const decreaseLikes = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         return res.status(400).json({ status: "failed", message: "memory id required" });
     }
     try {
-        const memory = yield memory_1.default.findOne({ _id: memoryId });
-        if (memory) {
-            console.log(memory === null || memory === void 0 ? void 0 : memory.likes);
-            if (memory.likes >= 1) {
-                memory.likes -= 1;
-                try {
-                    const response = yield memory.save();
-                    if (response) {
-                        return res.status(200).json({ status: "success", message: "successfully decreased likes", data: memory });
-                    }
-                }
-                catch (err) {
-                    return res.status(401).json({ status: "failed", message: "could not decrease likes" });
-                }
-            }
-            else {
-                res.status(400).json({ status: "failed", message: "cannot decrease likes" });
-            }
-        }
+        const result = yield memory_1.default.updateOne({ _id: memoryId }, { $inc: { likes: -1 } });
+        console.log(result);
     }
     catch (err) {
         res.status(404).json({ message: "memory not found" });

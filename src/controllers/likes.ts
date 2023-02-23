@@ -27,24 +27,9 @@ export const decreaseLikes = async (req: Request, res: Response) => {
     }
 
     try {
-        const memory = await Memory.findOne({ _id: memoryId });
-        if (memory) {
-        console.log(memory?.likes)
-            if (memory.likes >= 1) {
-                memory.likes -= 1;
-                try {
-                     const response = await memory.save();
-                    if (response) {
-                         return res.status(200).json({status: "success", message: "successfully decreased likes", data: memory})
-                     }
-                } catch (err) {
-                    return res.status(401).json({status: "failed", message: "could not decrease likes"})
-                }
-               
-            } else {
-                res.status(400).json({status:"failed", message: "cannot decrease likes"})
-            }
-        }
+        const result = await Memory.updateOne({ _id: memoryId }, { $inc: { likes: -1 } })
+        console.log(result);
+        
     } catch (err) {
         res.status(404).json({message: "memory not found"})
     }

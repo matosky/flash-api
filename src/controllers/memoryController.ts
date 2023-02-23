@@ -1,4 +1,4 @@
-import express, { Application, Request, Response, NextFunction } from "express";
+import  {  Request, Response, NextFunction } from "express";
 import Memory from "../models/memory";
 import User from "../models/user";
 import cloudUpload from "../utils/cloudinary";
