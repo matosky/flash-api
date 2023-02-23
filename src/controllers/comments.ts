@@ -4,7 +4,7 @@ import Memory from "../models/memory";
 
 export const createComment = async (req: Request, res: Response) => {
     const memoryId = req.params.memoryId;
-    const { name, text } = req.body;
+    const { name, text } = JSON.parse(req.body.body);
 
     // console.log({memoryId, comment})
     if (!memoryId) {
@@ -14,7 +14,7 @@ export const createComment = async (req: Request, res: Response) => {
     try {
         const memory = await Memory.findByIdAndUpdate(memoryId, { $push: { comments: {name,text} } }, { new: true });
         if (memory) {
-            res.status(201).json({ status: "success", message: "successfully added comment" });
+            res.status(201).json({ status: "success", message: "successfully added comment", data: memory });
         }
     } catch (err) {
         res.status(400).json({ status: "faild", message: "comment could not be created" });
@@ -33,7 +33,7 @@ export const deleteComment = async (req: Request, res: Response) => {
     try {
         const memory = await Memory.findByIdAndUpdate(memoryId, { $pull: { comments: { _id: commentId } } }, { new: true });
         if (memory) {
-            res.status(200).json({ status: "success", message: "successfully deleted comment" });
+            res.status(200).json({ status: "success", message: "successfully deleted comment", data: memory });
         }
     } catch (err) {
         res.status(400).json({ status: "failed", message: "comment could not be created" });

@@ -16,7 +16,7 @@ exports.deleteComment = exports.createComment = void 0;
 const memory_1 = __importDefault(require("../models/memory"));
 const createComment = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const memoryId = req.params.memoryId;
-    const { name, text } = req.body;
+    const { name, text } = JSON.parse(req.body.body);
     // console.log({memoryId, comment})
     if (!memoryId) {
         return res.status(400).json({ status: "failed", message: "memory id needed" });
@@ -24,7 +24,7 @@ const createComment = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     try {
         const memory = yield memory_1.default.findByIdAndUpdate(memoryId, { $push: { comments: { name, text } } }, { new: true });
         if (memory) {
-            res.status(201).json({ status: "success", message: "successfully added comment" });
+            res.status(201).json({ status: "success", message: "successfully added comment", data: memory });
         }
     }
     catch (err) {
@@ -41,7 +41,7 @@ const deleteComment = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     try {
         const memory = yield memory_1.default.findByIdAndUpdate(memoryId, { $pull: { comments: { _id: commentId } } }, { new: true });
         if (memory) {
-            res.status(200).json({ status: "success", message: "successfully deleted comment" });
+            res.status(200).json({ status: "success", message: "successfully deleted comment", data: memory });
         }
     }
     catch (err) {
