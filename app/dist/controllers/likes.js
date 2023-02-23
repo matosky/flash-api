@@ -40,6 +40,9 @@ const decreaseLikes = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     try {
         const result = yield memory_1.default.updateOne({ _id: memoryId }, { $inc: { likes: -1 } });
         console.log(result);
+        if (result) {
+            res.status(200).json({ status: "success", data: result });
+        }
     }
     catch (err) {
         res.status(404).json({ message: "memory not found" });
