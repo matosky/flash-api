@@ -10,7 +10,7 @@ export const increaseLikes = async (req: Request, res: Response) => {
     }
 
     try {
-        const result = await Memory.updateOne({ _id: memoryId }, { $inc: { likes: 1, liked: true } });
+        const result = await Memory.updateOne({ _id: memoryId }, { $inc: { likes: 1 }, $set: { liked: true }});
         console.log(result)
         if (result) {
            res.status(200).json({ status: "success", message: "like increased successfully", data: result })
@@ -36,7 +36,7 @@ export const decreaseLikes = async (req: Request, res: Response) => {
     }
 
     try {
-        const result = await Memory.updateOne({ _id: memoryId }, { $inc: { likes: -1, liked:false } })
+        const result = await Memory.updateOne({ _id: memoryId }, { $inc: { likes: -1 }, $set: { liked: true } })
         console.log(result);
         if (result) {
           res.status(200).json({status:"success", data:result})
