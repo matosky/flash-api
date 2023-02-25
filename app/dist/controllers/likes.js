@@ -21,7 +21,7 @@ const increaseLikes = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         return res.status(400).json({ status: "failed", message: "memory id required" });
     }
     try {
-        const result = yield memory_1.default.updateOne({ _id: memoryId }, { $inc: { likes: 1 } });
+        const result = yield memory_1.default.updateOne({ _id: memoryId }, { $inc: { likes: 1, liked: true } });
         console.log(result);
         if (result) {
             res.status(200).json({ status: "success", message: "like increased successfully", data: result });
@@ -36,7 +36,7 @@ const decreaseLikes = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     const memoryId = req.params.id;
     try {
         const memory = yield memory_1.default.findOne({ _id: memoryId });
-        if ((memory === null || memory === void 0 ? void 0 : memory.likes) === 0) {
+        if (memory === null || memory === void 0 ? void 0 : memory.liked) {
             console.log(memory);
             return res.json({ data: memory, msg: "no way" });
         }
@@ -48,7 +48,7 @@ const decreaseLikes = (req, res) => __awaiter(void 0, void 0, void 0, function* 
         return res.status(400).json({ status: "failed", message: "memory id required" });
     }
     try {
-        const result = yield memory_1.default.updateOne({ _id: memoryId }, { $inc: { likes: -1 } });
+        const result = yield memory_1.default.updateOne({ _id: memoryId }, { $inc: { likes: -1, liked: false } });
         console.log(result);
         if (result) {
             res.status(200).json({ status: "success", data: result });

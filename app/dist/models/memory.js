@@ -28,6 +28,10 @@ const memorySchema = new mongoose_1.Schema({
         type: String,
     },
     likes: { type: Number, default: 0 },
+    liked: {
+        type: Boolean,
+        default: false
+    },
     comments: {
         type: [
             {
