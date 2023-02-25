@@ -22,6 +22,14 @@ export const increaseLikes = async (req: Request, res: Response) => {
 
 export const decreaseLikes = async (req: Request, res: Response) => {
     const memoryId = req.params.id;
+    try {
+        const memory = await Memory.findOne({ _id: memoryId });
+        if (memory?.likes === 0) {
+            return res.json("likes can no longer be decreased further");
+        }
+    } catch (err) {
+        console.log(err)
+    }
     if (!memoryId) {
         return res.status(400).json({status: "failed", message: "memory id required"})
     }

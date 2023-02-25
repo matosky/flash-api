@@ -34,6 +34,15 @@ const increaseLikes = (req, res) => __awaiter(void 0, void 0, void 0, function* 
 exports.increaseLikes = increaseLikes;
 const decreaseLikes = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const memoryId = req.params.id;
+    try {
+        const memory = yield memory_1.default.findOne({ _id: memoryId });
+        if ((memory === null || memory === void 0 ? void 0 : memory.likes) === 0) {
+            return res.json("likes can no longer be decreased further");
+        }
+    }
+    catch (err) {
+        console.log(err);
+    }
     if (!memoryId) {
         return res.status(400).json({ status: "failed", message: "memory id required" });
     }
