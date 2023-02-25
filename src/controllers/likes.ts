@@ -25,7 +25,8 @@ export const decreaseLikes = async (req: Request, res: Response) => {
     try {
         const memory = await Memory.findOne({ _id: memoryId });
         if (memory?.likes === 0) {
-            return res.json("likes can no longer be decreased further");
+            console.log(memory)
+            return res.json({data:memory, msg: "no way"});
         }
     } catch (err) {
         console.log(err)

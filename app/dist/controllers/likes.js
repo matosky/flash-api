@@ -37,7 +37,8 @@ const decreaseLikes = (req, res) => __awaiter(void 0, void 0, void 0, function* 
     try {
         const memory = yield memory_1.default.findOne({ _id: memoryId });
         if ((memory === null || memory === void 0 ? void 0 : memory.likes) === 0) {
-            return res.json("likes can no longer be decreased further");
+            console.log(memory);
+            return res.json({ data: memory, msg: "no way" });
         }
     }
     catch (err) {
