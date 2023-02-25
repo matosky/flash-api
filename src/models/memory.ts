@@ -8,6 +8,7 @@ interface IMemory {
   location: string;
   user_id: any;
   likes: number;
+  liked: boolean
   comments: any;
   _id: any;
 }
@@ -40,6 +41,10 @@ const memorySchema = new Schema<IMemory>(
       type: String,
     },
     likes: { type: Number, default: 0 },
+     liked: {
+    type: Boolean,
+    default: false
+  },
     comments: {
       type: [
         {
