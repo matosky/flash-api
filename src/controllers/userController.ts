@@ -1,5 +1,6 @@
 import express, { Application, Request, Response, NextFunction } from "express";
 import User from "../models/user";
+import bcrypt from "bcrypt";
 
 export const createUser = async (
   req: Request,
@@ -67,10 +68,13 @@ export const loginUser = async (
   next: NextFunction
 ) => {
   try {
-    const { email, password } = JSON.parse(req.body.body);
+    const { email, password } = req.body;
+    // const { email, password } = JSON.parse(req.body.body);
 
     const user = await User.findUserByCredentials(email, password);
     console.log(email, password)
+    console.log(user);
+    
     const token = await user.genUserAuthToken();
     console.log(token)
     res.status(200).json({ user, token });
@@ -101,3 +105,31 @@ export const deleteUser = async (
     });
   }
 };
+
+export const changePassword = async (req: Request, res: Response) => {
+  const { oldPassword, email, newPassword } = req.body;
+
+  try {
+    const user = await User.findOne({ email: email });
+    console.log(user)
+    if (user) {
+      const { password } = user;
+      const isMatch = await bcrypt.compare(oldPassword, password);
+      console.log("isMatch", isMatch);
+      
+      if (!isMatch) {
+        return res.status(400).json("Incorrect Password")
+      }
+
+      const reset = await User.findByIdAndUpdate({ _id: user.id }, { $set: { password: newPassword } });
+      console.log("reset", reset)
+      if (reset) {
+         res.status(201).json("Password reset successful...")
+      }
+    }
+  } catch (err) {
+    console.log(err)
+    res.status(404).json("user not found")
+  }
+
+}

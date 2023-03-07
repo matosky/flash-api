@@ -12,5 +12,6 @@ router.post('/login', userController_1.loginUser);
 router.get("/", userController_1.getAllUsers);
 router.delete("/me", userController_1.deleteUser);
 router.get("/:user", userController_1.getSingleUser);
+router.patch("/changePassword", userController_1.changePassword);
 exports.default = router;
 //# sourceMappingURL=userRoutes.js.map

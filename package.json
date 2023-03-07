@@ -4,7 +4,7 @@
   "description": "a memory sharing app",
   "main": "app.js",
   "scripts": {
-    "start": "node app/dist/server.js",
+    "start": "nodemon app/dist/server.js",
     "compile": "tsc -w"
   },
   "author": "",
