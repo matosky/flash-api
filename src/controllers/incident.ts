@@ -10,9 +10,9 @@ export const postIncident = async (
     const { type, description, location } = req.body;
     const photo = req.file?.path;
     
-  if (!type || !description || !location) {
-    return res.status(400).json({ message: "fill required fields" });
-  }
+//   if (!type || !description || !location) {
+//     return res.status(400).json({ message: "fill required fields" });
+//   }
 
 
 

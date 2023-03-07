@@ -19,9 +19,9 @@ const postIncident = (req, res, next) => __awaiter(void 0, void 0, void 0, funct
     var _a;
     const { type, description, location } = req.body;
     const photo = (_a = req.file) === null || _a === void 0 ? void 0 : _a.path;
-    if (!type || !description || !location) {
-        return res.status(400).json({ message: "fill required fields" });
-    }
+    //   if (!type || !description || !location) {
+    //     return res.status(400).json({ message: "fill required fields" });
+    //   }
     if (photo) {
         try {
             const cloudImage = yield cloudinary_1.default.uploader.upload(photo, {
