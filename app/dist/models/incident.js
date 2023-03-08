@@ -5,16 +5,6 @@ const mongoose = require("mongoose");
 const incidentSchema = new mongoose.Schema({
     type: { type: String, required: true },
     description: { type: String, required: true },
-    photo: {
-        public_id: {
-            type: String,
-            required: false,
-        },
-        url: {
-            type: String,
-            required: false,
-        },
-    },
     location: { type: String, required: true }
 }, { timestamps: true });
 // Create the incident model

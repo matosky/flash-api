@@ -13,7 +13,7 @@ router.get("/", auth_1.authMiddleware, memoryController_1.getAllMemories);
 router.patch("/:id", memoryController_1.updateMemory);
 router.get("/:id", auth_1.authMiddleware, memoryController_1.getSingleMemory);
 router.get("/user/:username", auth_1.authMiddleware, memoryController_1.getOwnMemory);
-router.post("/", auth_1.authMiddleware, imageUpload_1.Upload, memoryController_1.createMemory);
+router.post("/", auth_1.authMiddleware, imageUpload_1.Upload.single("image"), memoryController_1.createMemory);
 router.delete("/:id", auth_1.authMiddleware, memoryController_1.deleteMemory);
 exports.default = router;
 //# sourceMappingURL=memoryRoutes.js.map

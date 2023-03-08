@@ -14,42 +14,24 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.getAllIncidents = exports.postIncident = void 0;
 const incident_1 = __importDefault(require("../models/incident"));
-const cloudinary_1 = __importDefault(require("../utils/cloudinary"));
 const postIncident = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
-    var _a;
     const { type, description, location } = req.body;
-    const photo = (_a = req.file) === null || _a === void 0 ? void 0 : _a.path;
-    //   if (!type || !description || !location) {
-    //     return res.status(400).json({ message: "fill required fields" });
-    //   }
-    if (photo) {
-        try {
-            const cloudImage = yield cloudinary_1.default.uploader.upload(photo, {
-                folder: "memories",
-            });
-            if (cloudImage) {
-                const newIncident = new incident_1.default({
-                    type: type,
-                    description: description,
-                    photo: {
-                        public_id: cloudImage.public_id,
-                        url: cloudImage.secure_url,
-                    },
-                    location: location,
-                });
-                try {
-                    const result = yield newIncident.save();
-                    console.log(result);
-                    res.status(201).json({ status: "success", data: result });
-                }
-                catch (err) {
-                    res.status(400).json({ message: err });
-                }
-            }
+    if (!type || !description || !location) {
+        return res.status(400).json({ message: "fill required fields" });
+    }
+    try {
+        const newIncident = new incident_1.default({
+            type: type,
+            location: location,
+            description: description
+        });
+        const result = yield newIncident.save();
+        if (result) {
+            return res.status(201).json({ status: "success", message: result });
         }
-        catch (err) {
-            console.log(err);
-        }
+    }
+    catch (err) {
+        res.status(400).json({ status: "failed", message: "invalid report", error: err });
     }
 });
 exports.postIncident = postIncident;
