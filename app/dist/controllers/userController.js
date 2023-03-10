@@ -66,11 +66,8 @@ const getSingleUser = (req, res, next) => __awaiter(void 0, void 0, void 0, func
 exports.getSingleUser = getSingleUser;
 const loginUser = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     try {
-        const { email, password } = JSON.parse(req.body);
-        // const { email, password } = JSON.parse(req.body.body);
-        console.log(email);
+        const { email, password } = req.body;
         const user = yield user_1.default.findUserByCredentials(email, password);
-        console.log(user);
         const token = yield user.genUserAuthToken();
         res.status(200).json({ user, token });
     }
