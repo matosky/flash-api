@@ -68,18 +68,14 @@ export const loginUser = async (
   next: NextFunction
 ) => {
   try {
-    const { email, password } = req.body;
+    const { email, password } = JSON.parse(req.body);
     // const { email, password } = JSON.parse(req.body.body);
-
+    console.log(email)
     const user = await User.findUserByCredentials(email, password);
-    console.log(email, password)
-    console.log(user);
-    
+    console.log(user)
     const token = await user.genUserAuthToken();
-    console.log(token)
     res.status(200).json({ user, token });
   } catch (error: any) {
-    console.log(error)
     res.status(400).json({
       message: error.message,
     });

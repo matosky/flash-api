@@ -12,7 +12,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getAllIncidents = exports.postIncident = void 0;
+exports.searchItem = exports.getAllIncidents = exports.postIncident = void 0;
 const incident_1 = __importDefault(require("../models/incident"));
 const postIncident = (req, res, next) => __awaiter(void 0, void 0, void 0, function* () {
     const { type, description, location } = req.body;
@@ -23,7 +23,7 @@ const postIncident = (req, res, next) => __awaiter(void 0, void 0, void 0, funct
         const newIncident = new incident_1.default({
             type: type,
             location: location,
-            description: description
+            description: description,
         });
         const result = yield newIncident.save();
         if (result) {
@@ -31,7 +31,9 @@ const postIncident = (req, res, next) => __awaiter(void 0, void 0, void 0, funct
         }
     }
     catch (err) {
-        res.status(400).json({ status: "failed", message: "invalid report", error: err });
+        res
+            .status(400)
+            .json({ status: "failed", message: "invalid report", error: err });
     }
 });
 exports.postIncident = postIncident;
@@ -45,4 +47,17 @@ const getAllIncidents = (req, res) => __awaiter(void 0, void 0, void 0, function
     }
 });
 exports.getAllIncidents = getAllIncidents;
+const searchItem = (req, res) => __awaiter(void 0, void 0, void 0, function* () {
+    const type = req.params.type;
+    try {
+        const incidents = yield incident_1.default.find({
+            type: { $regex: type, $options: "i" },
+        });
+        res.status(200).json({ data: incidents });
+    }
+    catch (err) {
+        res.status(404).json({ message: "no such incident", err });
+    }
+});
+exports.searchItem = searchItem;
 //# sourceMappingURL=incident.js.map

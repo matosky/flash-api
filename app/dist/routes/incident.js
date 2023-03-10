@@ -9,5 +9,6 @@ const incident_1 = require("../controllers/incident");
 const router = express_1.default.Router();
 router.get("/", incident_1.getAllIncidents);
 router.post("/", incident_1.postIncident);
+router.get("/:type", incident_1.searchItem);
 exports.default = router;
 //# sourceMappingURL=incident.js.map
